@@ -12,11 +12,11 @@ Summary:  Kvm framebuffer relay module for use with looking-glass
 License:  GPLv2
 URL:      https://github.com/gnif/LookingGlass
 
-Source:   %{url}/archive/refs/%{ref}/%{tag}.tar.gz
+Source0:   %{url}/archive/refs/%{ref}/%{tag}.tar.gz
 
 # Fix for Kernel 6.13, remove when merged
 # https://github.com/gnif/LookingGlass/pull/1149
-Patch0:   https://patch-diff.githubusercontent.com/raw/gnif/LookingGlass/pull/1149.patch
+Source1:   https://patch-diff.githubusercontent.com/raw/gnif/LookingGlass/pull/1149.patch
 
 BuildRequires: kmodtool
 BuildRequires: patch
@@ -31,7 +31,7 @@ Kvm framebuffer relay module for use with looking-glass
 
 find . -type f -name '*.c' -exec sed -i "s/#VERSION#/%{version}/" {} \+
 
-patch --directory=LookingGlass-%{tag} --strip=1 < $PATCH0
+patch --directory=LookingGlass-%{tag} --strip=1 < $SOURCE1
 
 for kernel_version  in %{?kernel_versions} ; do
   cp -a LookingGlass-%{tag}/module _kmod_build_${kernel_version%%___*}
