@@ -31,7 +31,7 @@ Kvm framebuffer relay module for use with looking-glass
 
 find . -type f -name '*.c' -exec sed -i "s/#VERSION#/%{version}/" {} \+
 
-%patch 0 --directory=LookingGlass-%{tag} --strip=1
+%patch 0 -p1 -d LookingGlass-%{tag}
 
 for kernel_version  in %{?kernel_versions} ; do
   cp -a LookingGlass-%{tag}/module _kmod_build_${kernel_version%%___*}
